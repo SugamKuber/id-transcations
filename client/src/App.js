@@ -8,10 +8,13 @@ import Sample from './components/Sample'
 import Home from './components/Home'
 import NoMatch from './components/NoMatch'
 import Navbar from "./components/Navbar";
+import Register from './components/Register'
+
 const supportedChainIds = [5];
 const connectors = {
   injected: {}
 };
+
 function App() {
   return (
     <ChakraProvider>
@@ -22,6 +25,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="sample" element={<Sample />} />
+          <Route path="register" element={<Register />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </ThirdwebProvider>

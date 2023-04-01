@@ -36,3 +36,12 @@ exports.findOne = catchAsync(async (req, res, next) => {
     }
     res.status(200).json(idData);
 });
+
+exports.check = catchAsync(async (req, res, next) => {
+    const id = req.params.id;
+    const idData = await Ids.findOne({ 'publicAddress': id })
+    if (!idData) {
+        return next(res.status(404).send({ message: "user not found" }));
+    }
+    res.status(200).json(idData);
+});

@@ -5,6 +5,7 @@ module.exports = app => {
     router.post("/create", id.create);
     router.get("/", id.findAll);
     router.get("/:id", id.findOne);
+    router.get("/check/:id", id.check);
 
 
     app.use("/api/id", router);
