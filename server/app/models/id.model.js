@@ -1,7 +1,8 @@
 module.exports = mongoose => {
     var schema = mongoose.Schema(
         {
-            uniqueId: String
+            uniqueId: String,
+            publicAddress: String
         },
         { timestamps: true }
     );
@@ -12,6 +13,6 @@ module.exports = mongoose => {
         return object;
     });
 
-    const Tutorial = mongoose.model("ids", schema);
-    return Tutorial;
+    const Ids = mongoose.model("ids", schema);
+    return Ids;
 };
