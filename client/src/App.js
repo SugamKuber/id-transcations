@@ -9,6 +9,8 @@ import Home from './components/Home'
 import NoMatch from './components/NoMatch'
 import Navbar from "./components/Navbar";
 import Register from './components/Register'
+import Send from './components/Send'
+import History from './components/History'
 
 const supportedChainIds = [5];
 const connectors = {
@@ -24,8 +26,9 @@ function App() {
         <Navbar />
         <Routes>
           <Route index element={<Home />} />
-          <Route path="sample" element={<Sample />} />
           <Route path="register" element={<Register />} />
+          <Route path="pay" element={<Send />} />
+          <Route path="history" element={<History />} />
           <Route path="*" element={<NoMatch />} />
         </Routes>
       </ThirdwebProvider>

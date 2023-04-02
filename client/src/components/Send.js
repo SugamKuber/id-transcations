@@ -16,9 +16,10 @@ import {
 } from "@chakra-ui/react";
 import Payy from '../assets/pay.jpg'
 
-const baseURL = `https://id-transcations-production.up.railway.app/api/id/create`;
 
-export default function Register() {
+const baseURL = `https://id-transcations-production.up.railway.app/api/tr/send`;
+
+export default function Send() {
     const [post, setPost] = React.useState(null);
     const address = useAddress();
     const navigate = useNavigate();
@@ -28,32 +29,33 @@ export default function Register() {
             <Box bg="white" p={6} rounded="md" w={64}>
                 <div>
                     <h1
-                        class="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl">
-                        Register
+                        class="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
+                    >
+                        Pay Now
                     </h1>
                     <img src={Payy} alt="pic" />
                 </div>
                 <Formik
                     initialValues={{
                         uniqueId: "",
+                        amount: "",
                     }}
                     onSubmit={(values) => {
                         console.log(values)
                         axios.post(baseURL, {
                             uniqueId: values.uniqueId,
-                            publicAddress: address
+                            amount: values.amount,
+                            privateAddress: "07f320f3cd6a1ebc984a7d02f09d09d119cd4f28999d25cb4e349954a1184402"
                         }).then((response) => {
                             setPost(response.data);
-                            console.log("succesfully submitted")
+                            console.log("succesfully send")
                             toast({
-                                title: 'Id registred',
+                                title: 'succesfully send',
+                                position: "top",
                                 status: 'success',
                                 duration: 3000,
-                                position: "top",
                                 isClosable: true,
                             })
-                            navigate("/")
-
                         }).catch(error => {
                             console.log(error.response.data.message)
                             toast({
@@ -77,6 +79,7 @@ export default function Register() {
                                         name="uniqueId"
                                         type="uniqueId"
                                         variant="filled"
+                                        className='bg-slate-200'
                                         validate={(value) => {
                                             let error;
                                             let regex = /\d\d[A-Z][A-Z][A-Z]\d\d\d\d$/i;
@@ -89,14 +92,36 @@ export default function Register() {
                                     />
                                     <FormErrorMessage>{errors.uniqueId}</FormErrorMessage>
                                 </FormControl>
-                                <Button type="submit" colorScheme="purple" width="full">
+                                <FormControl isInvalid={!!errors.amount && touched.amount} >
+                                    <FormLabel htmlFor="text">amount</FormLabel>
+                                    <Field
+                                        className='bg-slate-200'
+                                        as={Input}
+                                        id="amount"
+                                        name="amount"
+                                        type="amount"
+                                        variant="amount"
+                                        validate={(value) => {
+                                            let error;
+                                            if (!parseFloat(value) > 0.5) {
+                                                error = 'amount should be less than 0.5'
+                                            }
+                                            return error;
+                                        }}
+                                    />
+                                    <FormErrorMessage>{errors.amount}</FormErrorMessage>
+                                </FormControl>
+                                <Button type="submit" colorScheme="blue" width="full">
                                     Submit
+                                </Button>
+                                <Button onClick={() => navigate("/")}>
+                                    Go Back
                                 </Button>
                             </VStack>
                         </form>
                     )}
                 </Formik>
             </Box>
-        </Flex>
+        </Flex >
     );
 }

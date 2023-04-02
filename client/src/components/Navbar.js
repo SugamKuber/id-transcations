@@ -11,7 +11,7 @@ import {
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import Connect from './Connect'
 
-const Links = ['Dashboard', 'Projects', 'Team'];
+const Links = ['pay', 'history', 'register'];
 
 const NavLink = ({ children }) => (
     <Link
@@ -42,7 +42,7 @@ export default function Navbar() {
                         onClick={isOpen ? onClose : onOpen}
                     />
                     <HStack spacing={8} alignItems={'center'}>
-                        <Box>Logo</Box>
+                        <Box>TrancId</Box>
                         <HStack
                             as={'nav'}
                             spacing={4}
@@ -61,7 +61,7 @@ export default function Navbar() {
                     <Box pb={4} display={{ md: 'none' }}>
                         <Stack as={'nav'} spacing={4}>
                             {Links.map((link) => (
-                                <NavLink key={link}>{link}</NavLink>
+                                <a href={link}>{link}</a>
                             ))}
                         </Stack>
                     </Box>
